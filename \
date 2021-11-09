@@ -55,16 +55,15 @@ function clearEverything() {
 }
 
 numButton.addEventListener('click', function(event) {
-  if (operation == '' && answer == 0 ) {
+  if (operation == '' ) {
     display.textContent += event.target.value;
     miniDisplay.textContent += event.target.value;
     number1 = display.textContent
-
-  } else if (operation != '' && answer == 0) {
+  } else if (operation != '') {
     display.textContent += event.target.value
     number2 = display.textContent
-  } else if (operation != '' && answer != 0) {
-    display.textContent += event.target.value 
+  } else {
+    placeHolder= 3
   }
   
 })
@@ -75,7 +74,7 @@ operButton.addEventListener('click', function(event) {
     miniDisplay.textContent += operation;
     display.textContent = '';
 
-  } else if (event.target.value == '=' && operation != '') {
+  } else if (event.target.value == '=' && operation == '') {
     answer = operate(operation, number1, number2);
     display.textContent = answer;
     miniDisplay.textContent += number2;
