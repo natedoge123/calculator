@@ -11,22 +11,26 @@ let operationDisplay = '';
 let placeHolder = 0
 
 function addNum (num1, num2) {
-  let add = num1 + num2;
+  let add = parseInt(num1) + parseInt(num2);
+  add = Math.round(add);
   return add;
 }
 
 function subtractNum (num1, num2) {
   let subtract = num1 - num2;
+  subtract = Math.round(subtract);
   return subtract;
 }
 
 function multiNum (num1, num2) {
   let multi = num1 * num2;
+  multi = Math.round(multi);
   return multi;
 }
 
 function divideNum (num1, num2) {
   let divide = num1 / num2;
+  divide = Math.round(divide);
   return divide;
 }
 
@@ -57,33 +61,50 @@ function clearEverything() {
 numButton.addEventListener('click', function(event) {
   if (operation == '' && answer == 0 ) {
     display.textContent += event.target.value;
-    miniDisplay.textContent += event.target.value;
-    number1 = display.textContent
+    number1 = display.textContent;
 
   } else if (operation != '' && answer == 0) {
     display.textContent += event.target.value
-    number2 = display.textContent
+    number2 = display.textContent;
+
   } else if (operation != '' && answer != 0) {
-    display.textContent += event.target.value 
+      if ( display.textContent == answer) {
+        display.textContent = '';
+        number1 = answer;
+        answer = 0;
+      }
+    display.textContent += event.target.value;
+    number2 = display.textContent;
+    
   }
   
 })
 
 operButton.addEventListener('click', function(event) {
   if (event.target.value != '=' && operation == '') {
+    miniDisplay.textContent += number1
     operation = event.target.value;
     miniDisplay.textContent += operation;
     display.textContent = '';
 
   } else if (event.target.value == '=' && operation != '') {
+    if (operation == '/' && number2 == 0) {
+      display.textContent = 'you cant do that'
+    } else {
     answer = operate(operation, number1, number2);
     display.textContent = answer;
     miniDisplay.textContent += number2;
+    }
 
   } else if (event.target.value != '=' && operation != '') {
+    if (operation == '/' && number2 ==0) {
+      display.textContent = 'you cant do that';
+    } else {
     answer = operate(operation, number1, number2);
+    operation = event.target.value;
     display.textContent = answer;
     miniDisplay.textContent += number2
+    }
   }
 })
 
